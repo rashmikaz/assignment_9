@@ -79,5 +79,49 @@
 
 </section>
 
+<audio id="audio" src="audio/audio.mp3"></audio>
+
+<script src="lib/jquery-3.7.1.min.js"></script>
+<script>
+
+  var currentIndex=0;
+  var max_index=7;
+  var move="RIGHT";
+
+  function updateLignt(){
+    $(".light").removeClass("light-on");
+    $(".light").removeClass("light-on2");
+
+    $(".light").eq(currentIndex).addClass("light-on");
+
+    if(move === "RIGHT"){
+      if(currentIndex!==0){$(".light").eq(currentIndex-1).addClass("light-on2");}
+
+      ++currentIndex;
+      if(currentIndex>max_index-2){
+        move="LEFT";
+      }
+    }else{
+      $(".light").eq(currentIndex+1).addClass("light-on2");
+
+      --currentIndex;
+      if(currentIndex===0){
+        move="RIGHT";
+      }
+    }
+
+
+  }
+  $("#start").on('click', () => {
+    myInterval=setInterval(updateLignt,50);
+    $("audio")[0].play();
+  })
+  $("#stop").on('click', () => {
+    clearInterval(myInterval);
+    $("audio")[0].pause();
+  })
+
+</script>
+
 </body>
 </html>
